@@ -6,20 +6,19 @@ import React from 'react';
 
 class FoodBox extends React.Component {
   render() {
-    console.log(this.props.foods[0].image);
     return (
       <div className="box">
         <article className="media">
           <div className="media-left">
             <figure className="image is-64x64">
-              <img src={this.props.foods[0].image} alt="food" />
+              <img src={this.props.food.image} alt="food" />
             </figure>
           </div>
           <div className="media-content">
             <div className="content">
               <p>
-                <strong>Pizza</strong> <br />
-                <small>400 cal</small>
+                <strong>{this.props.food.name}</strong> <br />
+                <small>{this.props.food.calories} cal</small>
               </p>
             </div>
           </div>

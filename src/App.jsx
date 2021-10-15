@@ -8,7 +8,14 @@ function App() {
   return (
     <div className="App">
       <div>IronNutrition</div>
-      <FoodBox foods={foods} />
+
+      {/* #################################
+          ##  Iteration 2: Display food  ##
+          ################################# */}
+
+      {foods.map((food) => {
+        return <FoodBox food={food} />;
+      })}
     </div>
   );
 }

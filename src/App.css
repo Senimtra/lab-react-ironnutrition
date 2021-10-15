@@ -1,20 +1,22 @@
-* {
-  box-sizing: border-box;
-}
-
 figure img {
-  height: 100% !important;
+  height: 101% !important;
+  border-top-left-radius: 0.3em;
+  border-bottom-left-radius: 0.3em;
 }
 
 .box {
   padding: 0 0 0 0.2em !important;
-  width: 25em;
+  width: 24em;
   margin: 1em;
-  box-shadow: 1px 1px 2px 1px rgb(197, 197, 197) !important;
+  box-shadow: none !important;
 }
 
 .media {
   align-items: center !important;
+  box-shadow: 1px 1px 2px 1px rgb(197, 197, 197) !important;
+  padding-top: 0 !important;
+  border-radius: 0.3em;
+  height: 65px;
 }
 
 .control {
@@ -31,5 +33,5 @@ input {
 
 button {
   width: 4em;
-  height: 66px !important;
+  height: 166% !important;
 }
