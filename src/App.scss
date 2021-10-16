@@ -1,3 +1,36 @@
+.App {
+  padding: 1em;
+}
+
+h1 {
+  margin: 1rem !important;
+}
+
+#add-food-btn {
+  margin: 1em;
+  width: 10em;
+  box-shadow: 1px 1px 2px 1px rgb(197, 197, 197) !important;
+}
+
+#add-food-form {
+  width: 24em;
+  margin-left: 1em;
+  margin-bottom: 3em;
+  h3 {
+    margin-top: 0.5em;
+    margin-bottom: 0.8em;
+  }
+  input {
+    box-shadow: 1px 1px 2px 1px rgb(197, 197, 197) !important;
+    width: 100% !important;
+    margin-bottom: 1em;
+  }
+  button {
+    width: 8em;
+    box-shadow: 1px 1px 2px 1px rgb(197, 197, 197) !important;
+  }
+}
+
 figure img {
   height: 101% !important;
   border-top-left-radius: 0.3em;
