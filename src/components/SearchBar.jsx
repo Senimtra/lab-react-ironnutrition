@@ -10,10 +10,14 @@ class SearchBar extends React.Component {
     this.props.onUpdateSearch(updatedString);
   };
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   render() {
     return (
       <div id="search-bar">
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input
             className="input"
             type="text"

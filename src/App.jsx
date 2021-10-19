@@ -3,6 +3,7 @@ import './App.scss';
 import AddFood from './components/AddFood';
 import FoodBox from './components/FoodBox';
 import SearchBar from './components/SearchBar';
+import TodaysFood from './components/TodaysFood';
 
 import foods from './foods.json';
 class App extends React.Component {
@@ -11,6 +12,7 @@ class App extends React.Component {
     foodsList: foods,
     searchList: [],
     searchString: '',
+    todaysFood: [],
   };
 
   toggleAddFoodForm = () => {
@@ -20,11 +22,24 @@ class App extends React.Component {
   };
 
   addFood = (food) => {
+    Promise.resolve(
+      this.setState({
+        showAddFoodForm: false,
+      })
+    ).then(() =>
+      this.setState({
+        foodsList: [
+          ...this.state.foodsList,
+          { name: food.name, calories: food.calories, image: food.image },
+        ],
+      })
+    );
+  };
+
+  addTodaysFood = (name, calories, amount) => {
     this.setState({
-      foodsList: [
-        ...this.state.foodsList,
-        { name: food.name, calories: food.calories, image: food.image },
-      ],
+      todaysFood: [...this.state.todaysFood, { name, calories, amount }],
+      showAddFoodForm: false,
     });
   };
 
@@ -33,47 +48,60 @@ class App extends React.Component {
       this.setState({
         searchString: updatedString,
       })
-    ).then(() => this.updateFoodList(this.state.searchString));
+    ).then(() => this.updateSearchList());
   };
 
-  updateFoodList = (searchString) => {
+  updateSearchList = () => {
+    const search = this.state.searchString;
     this.setState({
       searchList: this.state.foodsList.filter((el) =>
-        el.name.toLowerCase().startsWith(searchString.toLowerCase())
+        el.name.toLowerCase().startsWith(search.toLowerCase())
       ),
     });
   };
 
   updateShowList = () => {
-    return this.state.searchList.length
-      ? this.state.searchList
-      : this.state.searchString
-      ? []
-      : this.state.foodsList;
+    const { searchList, searchString, foodsList } = this.state;
+    return searchString === '' ? foodsList : searchList;
   };
 
   render() {
     return (
       <div className="App">
-        <h1 className="title is-1">IronNutrition</h1>
-        <SearchBar
-          searchString={this.state.searchString}
-          onUpdateSearch={this.updateSearchString}
-        />
-        <button
-          id="add-food-btn"
-          className="button is-info"
-          onClick={this.toggleAddFoodForm}
-        >
-          Add new food
-        </button>
-        {this.state.showAddFoodForm && <AddFood onAddFood={this.addFood} />}
-        {/* #################################
-            ##  Iteration 2: Display food  ##
-            ################################# */}
-        {this.updateShowList().map((food) => {
-          return <FoodBox key={Math.random()} food={food} />;
-        })}
+        <div>
+          <h1 className="title is-1">IronNutrition</h1>
+          <SearchBar
+            searchString={this.state.searchString}
+            onUpdateSearch={this.updateSearchString}
+          />
+          <div id="columns">
+            <div>
+              <button
+                id="add-food-btn"
+                className="button is-info"
+                onClick={this.toggleAddFoodForm}
+              >
+                Add new food
+              </button>
+              {this.state.showAddFoodForm && (
+                <AddFood onAddFood={this.addFood} />
+              )}
+              {/* #################################
+                  ##  Iteration 2: Display food  ##
+                  ################################# */}
+              {this.updateShowList().map((food) => {
+                return (
+                  <FoodBox
+                    key={Math.random()}
+                    food={food}
+                    onAddTodaysFood={this.addTodaysFood}
+                  />
+                );
+              })}
+            </div>
+            <TodaysFood todaysList={this.state.todaysFood} />
+          </div>
+        </div>
       </div>
     );
   }
