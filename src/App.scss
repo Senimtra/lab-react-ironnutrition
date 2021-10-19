@@ -6,6 +6,16 @@ h1 {
   margin: 1rem !important;
 }
 
+#search-bar {
+  width: 24em;
+  margin-left: 1em;
+  input {
+    box-shadow: 1px 1px 2px 1px rgb(197, 197, 197) !important;
+    width: 100% !important;
+    margin-bottom: 1em;
+  }
+}
+
 #add-food-btn {
   margin: 1em;
   width: 10em;

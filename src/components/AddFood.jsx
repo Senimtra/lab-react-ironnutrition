@@ -18,9 +18,10 @@ class AddFood extends React.Component {
     });
   };
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
-  }
+    this.props.onAddFood(this.state);
+  };
 
   render() {
     return (
@@ -51,12 +52,7 @@ class AddFood extends React.Component {
             onChange={this.updateFood}
             placeholder="Some nice picture of your food"
           />
-          <button
-            className="button is-info"
-            onClick={() => this.props.onAddFood(this.state)}
-          >
-            Add food
-          </button>
+          <button className="button is-info">Add food</button>
         </form>
       </div>
     );

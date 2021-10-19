@@ -2,12 +2,15 @@ import React from 'react';
 import './App.scss';
 import AddFood from './components/AddFood';
 import FoodBox from './components/FoodBox';
-import foods from './foods.json';
+import SearchBar from './components/SearchBar';
 
+import foods from './foods.json';
 class App extends React.Component {
   state = {
     showAddFoodForm: false,
     foodsList: foods,
+    searchList: [],
+    searchString: '',
   };
 
   toggleAddFoodForm = () => {
@@ -25,10 +28,38 @@ class App extends React.Component {
     });
   };
 
+  updateSearchString = (updatedString) => {
+    Promise.resolve(
+      this.setState({
+        searchString: updatedString,
+      })
+    ).then(() => this.updateFoodList(this.state.searchString));
+  };
+
+  updateFoodList = (searchString) => {
+    this.setState({
+      searchList: this.state.foodsList.filter((el) =>
+        el.name.toLowerCase().startsWith(searchString.toLowerCase())
+      ),
+    });
+  };
+
+  updateShowList = () => {
+    return this.state.searchList.length
+      ? this.state.searchList
+      : this.state.searchString
+      ? []
+      : this.state.foodsList;
+  };
+
   render() {
     return (
       <div className="App">
         <h1 className="title is-1">IronNutrition</h1>
+        <SearchBar
+          searchString={this.state.searchString}
+          onUpdateSearch={this.updateSearchString}
+        />
         <button
           id="add-food-btn"
           className="button is-info"
@@ -40,7 +71,7 @@ class App extends React.Component {
         {/* #################################
             ##  Iteration 2: Display food  ##
             ################################# */}
-        {this.state.foodsList.map((food) => {
+        {this.updateShowList().map((food) => {
           return <FoodBox key={Math.random()} food={food} />;
         })}
       </div>
